@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shortest Path Viz.</title>
+    <script src="./wasm_exec.js"></script>
+    <script type="module" src="./index.js"></script>
+    <script type="module" src="./bfs.js"></script>
+    <script src="./elm.min.js"></script>
+  </head>
+
+  <body>
+    <div id="myapp"></div>
+    <script>
+      var app = Elm.Main.init({
+        node: document.getElementById("myapp"),
+      });
+
+      app.ports.requestForBFS.subscribe(function (message) {
+        const { width, height, start, end, obstacles, allowDiagonal } = message;
+        const path = shortestPath(
+          width,
+          height,
+          start,
+          end,
+          obstacles,
+          allowDiagonal
+        );
+        // console.log(path);
+        app.ports.subscribeForBFSPath.send(path);
+      });
+    </script>
+  </body>
+</html>
