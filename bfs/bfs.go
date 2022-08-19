@@ -44,10 +44,10 @@ func ShortestPath[T comparable](start, end T, neighborFn func(T) map[T]bool) []T
 
 	for {
 		if parentOfCurr, ok := parentMap[curr]; ok {
+			ret = append(ret, curr)
 			if parentOfCurr.isEnd {
 				break
 			}
-			ret = append(ret, curr)
 			curr = parentOfCurr.parent
 		} else {
 			break
